@@ -31,7 +31,7 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_marginStart="20dp"
-            android:src="@drawable/X_value"
+            android:src="@drawable/x_value"
             android:adjustViewBounds="true"></ImageView>
         <EditText
             android:id="@+id/playerOneNickname"
@@ -64,7 +64,7 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_marginStart="20dp"
-            android:src="@drawable/O_value"
+            android:src="@drawable/zero_value"
             android:adjustViewBounds="true">
         </ImageView>
         <EditText
