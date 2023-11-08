@@ -1,24 +1,13 @@
 package com.apicela.jogodavelha
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
-import android.view.View
-import android.widget.Button
-import android.widget.EditText
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
-import android.widget.Toast
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.apicela.jogodavelha.ui.theme.JogoDaVelhaTheme
+import java.time.LocalDateTime
 
 class MainActivity : AppCompatActivity() {
 
@@ -49,6 +38,7 @@ class MainActivity : AppCompatActivity() {
         R.id.box5, R.id.box6, R.id.box7, R.id.box8,
         R.id.box9
     )
+    private val historyClass = History()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -117,6 +107,7 @@ class MainActivity : AppCompatActivity() {
         for(combination in winCondition){
             val hasWinner = combination.all { boxPositions[it] == playerTurn }
             if(hasWinner){
+                addMatchToHistory()
                 return true
             }
         }
@@ -149,4 +140,21 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun addMatchToHistory(){
+        var playerOne = playerOneNickname.text.toString()
+        var oponent = playerTwoNickname.text.toString()
+        if(playerTurn == 1 ) {
+            historyClass.addToHistoryList(playerOne,oponent, LocalDateTime.now(),true)
+        } else{
+            historyClass.addToHistoryList(playerOne,oponent, LocalDateTime.now(),false)
+        }
+    }
+
+    override fun onBackPressed() {
+//        val returnIntent = Intent()
+//        returnIntent.putExtra("RESULTADO", seuDado) // substitua "seuDado" pelo dado que deseja retornar
+//        setResult(Activity.RESULT_OK, returnIntent)
+//        super.onBackPressed()
+        println("BACK PRESSED \n \n \n \n \n")
+    }
 }
