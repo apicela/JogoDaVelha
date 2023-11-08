@@ -2,13 +2,16 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/amarelo_letras"
-    android:orientation="vertical">
+    android:src="@drawable/fundo_transparente"
+    android:orientation="vertical"
+    android:gravity="center">
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="200dp"
         android:orientation="vertical"
-        android:background="@drawable/background">
+        android:background="@drawable/background"
+
+        android:gravity="center">
 
     <TextView
         android:id="@+id/messageText"
@@ -20,18 +23,24 @@
         android:layout_marginEnd="20dp"
         android:text="Mensagem"
         android:textColor="@color/white"
-        android:textSize="18sp"
-        android:textStyle="bold">
+        android:textSize="25sp"
+        android:textStyle="bold"
+        android:fontFamily="monospace"
+        >
 
     </TextView>
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/reiniciarJogo"
-        android:layout_width="match_parent"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
-        android:background="@color/white"
+        android:background="@drawable/background_start_shape"
         android:textColor="@color/black"
         android:text="REINICIAR"
+        android:padding="10dp"
+        android:textSize="20sp"
+        android:textStyle="italic|bold"
+        android:fontFamily="monospace"
         android:gravity="center">
 
     </androidx.appcompat.widget.AppCompatButton>

@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
 
-class FinishMatchDialog(context: Context, mainActivity: MainActivity, private val message : String) : Dialog(context) {
+class FinishMatchDialog(context: Context, private val mainActivity: MainActivity, private val message : String) : Dialog(context) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.finish_match_layout)
@@ -15,6 +15,11 @@ class FinishMatchDialog(context: Context, mainActivity: MainActivity, private va
         val restartButton : Button = findViewById(R.id.reiniciarJogo)
 
         messageText.setText(message)
+
+        restartButton.setOnClickListener{
+            mainActivity.restartMatch()
+            dismiss()
+        }
 
     }
     }
