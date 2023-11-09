@@ -1,7 +1,5 @@
 package com.apicela.jogodavelha
 
-import android.app.Activity
-import android.content.Intent
 import android.os.Bundle
 import android.widget.ImageView
 import android.widget.LinearLayout
@@ -23,40 +21,40 @@ class MainActivity : AppCompatActivity() {
     )
     private lateinit var boxs: Array<ImageView?>
     private var boxPositions = intArrayOf(0, 0, 0, 0, 0, 0, 0, 0, 0)
-    private var playerTurn : Int = 1;
-    private var selectedBoxs : Int = 1;
+    private var playerTurn: Int = 1
+    private var selectedBoxs: Int = 1
 
 
-    private lateinit var playerOneNickname : TextView
-    private lateinit var playerTwoNickname : TextView
+    private lateinit var playerOneNickname: TextView
+    private lateinit var playerTwoNickname: TextView
 
-    private lateinit var playerOneContent : LinearLayout
-    private lateinit var playerTwoContent : LinearLayout
+    private lateinit var playerOneContent: LinearLayout
+    private lateinit var playerTwoContent: LinearLayout
 
     val boxIds = arrayOf(
         R.id.box1, R.id.box2, R.id.box3, R.id.box4,
         R.id.box5, R.id.box6, R.id.box7, R.id.box8,
         R.id.box9
     )
-    private val historyClass = History.getInstance();
+    private val historyClass = History.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_activity)
 
-        playerOneNickname  = findViewById(R.id.playerOneNickname)
-        playerTwoNickname  = findViewById(R.id.playerTwoNickname)
+        playerOneNickname = findViewById(R.id.playerOneNickname)
+        playerTwoNickname = findViewById(R.id.playerTwoNickname)
 
-        playerOneContent  = findViewById(R.id.playerOneContent)
+        playerOneContent = findViewById(R.id.playerOneContent)
         playerTwoContent = findViewById(R.id.playerTwoContent)
 
 
 
-        boxs = Array(9){ findViewById(boxIds[it]) }
+        boxs = Array(9) { findViewById(boxIds[it]) }
 
         for ((index, box) in boxs.withIndex()) {
             box?.setOnClickListener {
-                if(isBoxSelectable(index)){
+                if (isBoxSelectable(index)) {
                     markBox(it as ImageView, index)
                 }
             }
@@ -69,45 +67,56 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun markBox(image : ImageView, selectedBoxPosition : Int){
-        boxPositions[selectedBoxPosition] = playerTurn;
+    private fun markBox(image: ImageView, selectedBoxPosition: Int) {
+        boxPositions[selectedBoxPosition] = playerTurn
 
-        if(playerTurn == 1 ){
+        if (playerTurn == 1) {
             image.setImageResource(R.drawable.x_value)
-            if(checkWinner()){
-                var  winDialog : FinishMatchDialog = FinishMatchDialog(this@MainActivity,this@MainActivity, "${playerOneNickname.text} venceu a partida!")
+            if (checkWinner()) {
+                val winDialog = FinishMatchDialog(
+                    this@MainActivity,
+                    this@MainActivity,
+                    "${playerOneNickname.text} venceu a partida!"
+                )
                 winDialog.setCancelable(false)
                 winDialog.show()
-            } else if(selectedBoxs == 9){
-                var  drawDialog : FinishMatchDialog = FinishMatchDialog(this@MainActivity,this@MainActivity, "Empate! ")
+            } else if (selectedBoxs == 9) {
+                addMatchToHistory(true)
+                val drawDialog: FinishMatchDialog =
+                    FinishMatchDialog(this@MainActivity, this@MainActivity, "Empate! ")
                 drawDialog.setCancelable(false)
                 drawDialog.show()
-            } else{
+            } else {
                 changePlayer(2)
                 selectedBoxs++
             }
-        } else{
+        } else {
             image.setImageResource(R.drawable.zero_value)
-            if(checkWinner()){
-                var  winDialog : FinishMatchDialog = FinishMatchDialog(this@MainActivity,this@MainActivity, "${playerTwoNickname.text} venceu a partida!")
+            if (checkWinner()) {
+                var winDialog: FinishMatchDialog = FinishMatchDialog(
+                    this@MainActivity,
+                    this@MainActivity,
+                    "${playerTwoNickname.text} venceu a partida!"
+                )
                 winDialog.setCancelable(false)
                 winDialog.show()
-            } else if(selectedBoxs == 9){
+            } else if (selectedBoxs == 9) {
                 addMatchToHistory(true)
-                var  drawDialog : FinishMatchDialog = FinishMatchDialog(this@MainActivity,this@MainActivity, "Empate! ")
+                val drawDialog: FinishMatchDialog =
+                    FinishMatchDialog(this@MainActivity, this@MainActivity, "Empate! ")
                 drawDialog.setCancelable(false)
                 drawDialog.show()
-            } else{
+            } else {
                 changePlayer(1)
                 selectedBoxs++
             }
         }
     }
 
-    private fun checkWinner() : Boolean{
-        for(combination in winCondition){
+    private fun checkWinner(): Boolean {
+        for (combination in winCondition) {
             val hasWinner = combination.all { boxPositions[it] == playerTurn }
-            if(hasWinner){
+            if (hasWinner) {
                 addMatchToHistory(false)
                 return true
             }
@@ -115,44 +124,41 @@ class MainActivity : AppCompatActivity() {
         return false
     }
 
-    private fun changePlayer(player : Int){
-        playerTurn = player;
-        if(playerTurn == 1){
+    private fun changePlayer(player: Int) {
+        playerTurn = player
+        if (playerTurn == 1) {
             playerOneContent.setBackgroundResource(R.drawable.border_style)
             playerTwoContent.setBackgroundResource(R.drawable.fundo_transparente)
-        } else{
+        } else {
             playerTwoContent.setBackgroundResource(R.drawable.border_style)
             playerOneContent.setBackgroundResource(R.drawable.fundo_transparente)
         }
     }
 
     private fun isBoxSelectable(boxPosition: Int): Boolean {
-        if(boxPositions[boxPosition] == 0 ) return true
+        if (boxPositions[boxPosition] == 0) return true
         return false
     }
 
-    fun restartMatch(){
+    fun restartMatch() {
         boxPositions = intArrayOf(0, 0, 0, 0, 0, 0, 0, 0, 0)
         playerTurn = 1;
         selectedBoxs = 1;
 
-        for (box in boxs){
+        for (box in boxs) {
             box?.setImageResource(R.drawable.fundo_transparente)
         }
     }
 
-    private fun addMatchToHistory(empate : Boolean ) {
-        var playerOne = playerOneNickname.text.toString()
-        var oponent = playerTwoNickname.text.toString()
-
+    private fun addMatchToHistory(empate: Boolean) {
+        val playerOne = playerOneNickname.text.toString()
+        val oponent = playerTwoNickname.text.toString()
         if (empate) {
+            println("addMatchToHistory draw")
             historyClass.addToHistoryList(playerOne, oponent, LocalDateTime.now(), 0)
         } else {
-            if (playerTurn == 1) {
-                historyClass.addToHistoryList(playerOne, oponent, LocalDateTime.now(), 1)
-            } else {
-                historyClass.addToHistoryList(playerOne, oponent, LocalDateTime.now(), 2)
-            }
+            println("addMatchToHistory ")
+            historyClass.addToHistoryList(playerOne, oponent, LocalDateTime.now(), 1)
         }
     }
 }

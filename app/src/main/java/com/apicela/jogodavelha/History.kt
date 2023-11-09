@@ -8,13 +8,13 @@ import com.apicela.jogodavelha.databinding.ActivityHistoryBinding
 import com.apicela.jogodavelha.models.MatchGame
 import java.time.LocalDateTime
 
-class History (
+class History(
 ) : AppCompatActivity() {
-    private lateinit var binding : ActivityHistoryBinding
-    private lateinit var adapter : HistoryAdapter
+    private lateinit var binding: ActivityHistoryBinding
+    private lateinit var adapter: HistoryAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-       initRecycler()
+        initRecycler()
     }
 
     private fun initRecycler() {
@@ -28,7 +28,7 @@ class History (
     }
 
 
-    fun addToHistoryList(playerOne : String, oponent : String, date : LocalDateTime, resultado : Int) {
+    fun addToHistoryList(playerOne: String, oponent: String, date: LocalDateTime, resultado: Int) {
         val match = MatchGame(playerOne, oponent, date, resultado)
         history.add(match)
     }
