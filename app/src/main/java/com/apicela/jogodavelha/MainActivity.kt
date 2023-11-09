@@ -38,7 +38,7 @@ class MainActivity : AppCompatActivity() {
         R.id.box5, R.id.box6, R.id.box7, R.id.box8,
         R.id.box9
     )
-    private val historyClass = History()
+    private val historyClass = History.getInstance();
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -93,6 +93,7 @@ class MainActivity : AppCompatActivity() {
                 winDialog.setCancelable(false)
                 winDialog.show()
             } else if(selectedBoxs == 9){
+                addMatchToHistory(true)
                 var  drawDialog : FinishMatchDialog = FinishMatchDialog(this@MainActivity,this@MainActivity, "Empate! ")
                 drawDialog.setCancelable(false)
                 drawDialog.show()
@@ -107,7 +108,7 @@ class MainActivity : AppCompatActivity() {
         for(combination in winCondition){
             val hasWinner = combination.all { boxPositions[it] == playerTurn }
             if(hasWinner){
-                addMatchToHistory()
+                addMatchToHistory(false)
                 return true
             }
         }
@@ -140,21 +141,18 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun addMatchToHistory(){
+    private fun addMatchToHistory(empate : Boolean ) {
         var playerOne = playerOneNickname.text.toString()
         var oponent = playerTwoNickname.text.toString()
-        if(playerTurn == 1 ) {
-            historyClass.addToHistoryList(playerOne,oponent, LocalDateTime.now(),true)
-        } else{
-            historyClass.addToHistoryList(playerOne,oponent, LocalDateTime.now(),false)
-        }
-    }
 
-    override fun onBackPressed() {
-//        val returnIntent = Intent()
-//        returnIntent.putExtra("RESULTADO", seuDado) // substitua "seuDado" pelo dado que deseja retornar
-//        setResult(Activity.RESULT_OK, returnIntent)
-//        super.onBackPressed()
-        println("BACK PRESSED \n \n \n \n \n")
+        if (empate) {
+            historyClass.addToHistoryList(playerOne, oponent, LocalDateTime.now(), 0)
+        } else {
+            if (playerTurn == 1) {
+                historyClass.addToHistoryList(playerOne, oponent, LocalDateTime.now(), 1)
+            } else {
+                historyClass.addToHistoryList(playerOne, oponent, LocalDateTime.now(), 2)
+            }
+        }
     }
 }

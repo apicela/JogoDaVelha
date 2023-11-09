@@ -5,43 +5,45 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.apicela.jogodavelha.adapters.HistoryAdapter
 import com.apicela.jogodavelha.databinding.ActivityHistoryBinding
+import com.apicela.jogodavelha.models.MatchGame
 import java.time.LocalDateTime
 
-class History : AppCompatActivity() {
-
+class History (
+) : AppCompatActivity() {
     private lateinit var binding : ActivityHistoryBinding
-    private val history: MutableList<MatchGame> = mutableListOf()
-
+    private lateinit var adapter : HistoryAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityHistoryBinding.inflate(layoutInflater)
-        setContentView(R.layout.activity_history)
-        initRecyclerView()
+       initRecycler()
     }
 
-    fun getHistory(): List<String> {
-        return history.map { match ->
-            "Player One: ${match.playerOne}\nOpponent: ${match.opponent}\nDate: ${match.date}\nPlayer One Winner: ${match.playerOneWinner}"
+    private fun initRecycler() {
+        binding = ActivityHistoryBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        val recyclerView = binding.recyclerViewHistory
+        adapter = HistoryAdapter()
+        adapter.setList(history)
+        recyclerView.adapter = adapter
+        recyclerView.layoutManager = LinearLayoutManager(this)
+    }
+
+
+    fun addToHistoryList(playerOne : String, oponent : String, date : LocalDateTime, resultado : Int) {
+        val match = MatchGame(playerOne, oponent, date, resultado)
+        history.add(match)
+    }
+
+
+    companion object {
+        @Volatile
+        private var instance: History? = null
+        val history: MutableList<MatchGame> by lazy { mutableListOf<MatchGame>() }
+
+        fun getInstance(): History {
+            return instance ?: synchronized(this) {
+                instance ?: History().also { instance = it }
+            }
         }
     }
-
-    fun addToHistoryList(playerOne : String, oponent : String, date : LocalDateTime, playerOneWinner : Boolean) {
-        val match = MatchGame(playerOne, oponent, date, playerOneWinner)
-        history.add(match)
-        println("\n\n\n ${history.toString()}")
-    }
-
-    private fun initRecyclerView(){
-        binding.recyclerViewHistory.layoutManager = LinearLayoutManager(this)
-        binding.recyclerViewHistory.setHasFixedSize(true)
-        binding.recyclerViewHistory.adapter = HistoryAdapter(history)
-    }
-
 }
 
-data class MatchGame(
-    val playerOne: String,
-    val opponent: String,
-    val date: LocalDateTime,
-    val playerOneWinner: Boolean
-)

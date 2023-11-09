@@ -20,6 +20,5 @@ class FinishMatchDialog(context: Context, private val mainActivity: MainActivity
             mainActivity.restartMatch()
             dismiss()
         }
-
     }
     }
