@@ -3,14 +3,16 @@
     <!-- A imagem de fundo -->
     <item>
         <bitmap
-            android:src="@drawable/background"
-            android:gravity="center" />
+            android:gravity="center"
+            android:src="@drawable/background" />
     </item>
 
     <!-- A borda -->
     <item>
         <shape android:shape="rectangle">
-            <stroke android:color="@color/amarelo_letras" android:width="2dp" />
+            <stroke
+                android:width="2dp"
+                android:color="@color/amarelo_letras" />
         </shape>
     </item>
 </layer-list>

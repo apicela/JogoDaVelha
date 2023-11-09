@@ -3,68 +3,65 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".HomePage"
+    android:background="@drawable/background"
     android:gravity="center"
     android:orientation="vertical"
-    android:background="@drawable/background">
+    tools:context=".HomePage">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="50dp"
+        android:fontFamily="sans-serif-black"
+        android:gravity="center"
         android:text="JOGO DA VELHA!"
         android:textColor="@color/amarelo_letras"
-        android:gravity="center"
-        android:fontFamily="sans-serif-black"
-        android:textStyle="bold|italic"
         android:textSize="45sp"
-        android:layout_marginBottom="50dp"></TextView>
+        android:textStyle="bold|italic"></TextView>
 
     <ImageView
         android:layout_width="150dp"
         android:layout_height="150dp"
-        android:src="@drawable/art_tictac"
-        ></ImageView>
+        android:src="@drawable/art_tictac"></ImageView>
+
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/playWithFriend"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="20dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="40dp"
-        android:text="JOGAR COM UM AMIGO!"
+        android:layout_marginEnd="20dp"
         android:background="@drawable/background_start_shape"
-        android:gravity="center"
         android:fontFamily="sans-serif-black"
-        android:textSize="20sp">
-    </androidx.appcompat.widget.AppCompatButton>
+        android:gravity="center"
+        android:text="JOGAR COM UM AMIGO!"
+        android:textSize="20sp"></androidx.appcompat.widget.AppCompatButton>
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/startButtonAgainstIA"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="20dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="40dp"
-        android:text="ENFRENTAR UMA IA!"
+        android:layout_marginEnd="20dp"
         android:background="@drawable/background_start_shape"
-        android:gravity="center"
         android:fontFamily="sans-serif-black"
-        android:textSize="20sp">
-    </androidx.appcompat.widget.AppCompatButton>
+        android:gravity="center"
+        android:text="ENFRENTAR UMA IA!"
+        android:textSize="20sp"></androidx.appcompat.widget.AppCompatButton>
 
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/historyButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="20dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="40dp"
-        android:text="HISTÓRICO DE PARTIDAS"
+        android:layout_marginEnd="20dp"
         android:background="@drawable/background_start_shape"
-        android:gravity="center"
         android:fontFamily="sans-serif-black"
-        android:textSize="20sp">
-    </androidx.appcompat.widget.AppCompatButton>
+        android:gravity="center"
+        android:text="HISTÓRICO DE PARTIDAS"
+        android:textSize="20sp"></androidx.appcompat.widget.AppCompatButton>
 
 </LinearLayout>
