@@ -13,6 +13,9 @@
         android:theme="@style/Theme.JogoDaVelha"
         tools:targetApi="31">
         <activity
+            android:name=".models.Tabuleiro"
+            android:exported="false" />
+        <activity
             android:name=".History"
             android:exported="false" />
         <activity

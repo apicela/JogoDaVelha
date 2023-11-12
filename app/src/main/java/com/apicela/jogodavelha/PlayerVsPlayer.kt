@@ -15,7 +15,11 @@ class PlayerVsPlayer : AppCompatActivity() {
         val playerOneNickname: EditText = findViewById(R.id.playerOneNickname)
         val playerTwoNickname: EditText = findViewById(R.id.playerTwoNickname)
         val startButton: Button = findViewById(R.id.startButton)
+        val voltarButton: Button = findViewById(R.id.button_voltar)
 
+        voltarButton.setOnClickListener {
+            finish()
+        }
         startButton.setOnClickListener {
             val jogadorUmNome: String = playerOneNickname.text.toString()
             val jogadorDoisNome: String = playerTwoNickname.text.toString()

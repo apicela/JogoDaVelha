@@ -7,21 +7,52 @@
     android:orientation="vertical"
     tools:context=".History">
 
-    <TextView
-        android:id="@+id/textViewHistory"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/backLayout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="35dp"
-        android:layout_marginBottom="35dp"
-        android:fontFamily="sans-serif-black"
-        android:gravity="center"
-        android:text="Histórico"
-        android:textAlignment="center"
-        android:textColor="@color/black"
-        android:textSize="30dp"
-        app:layout_constraintBottom_toTopOf="@+id/recyclerViewHistory"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <Button
+            android:id="@+id/button_voltar"
+            android:layout_width="63dp"
+            android:layout_height="48dp"
+            android:layout_marginTop="3dp"
+            android:background="@null"
+            android:drawableLeft="@drawable/back_arrow" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="-36dp"
+            android:layout_marginTop="1.5dp"
+            android:fontFamily="sans-serif-condensed"
+            android:text="Voltar"
+            android:textColor="@color/azulBackArrow"
+            android:textSize="14sp"></TextView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/backLayout">
+
+        <TextView
+            android:id="@+id/textViewHistory"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:fontFamily="Roboto"
+            android:gravity="center"
+            android:text="Histórico"
+            android:textColor="@color/black"
+            android:textSize="30sp" />
+
+    </LinearLayout>
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewHistory"
@@ -32,5 +63,4 @@
         tools:layout_editor_absoluteX="16dp">
 
     </androidx.recyclerview.widget.RecyclerView>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

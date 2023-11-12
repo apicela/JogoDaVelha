@@ -24,6 +24,100 @@
         android:layout_height="150dp"
         android:src="@drawable/art_tictac"></ImageView>
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/grid_button_selector_bg"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/button3"
+                android:layout_width="80dp"
+                android:layout_height="25dp"
+                android:background="@drawable/button_selected"
+                android:text="3x3"
+                android:textColor="@color/white"></Button>
+
+            <!-- Button 4x4 -->
+            <Button
+                android:id="@+id/button4"
+                android:layout_width="80dp"
+                android:layout_height="25dp"
+                android:background="@null"
+                android:text="4x4"
+                android:textColor="@color/white"></Button>
+
+            <!-- Button 5x5 -->
+            <Button
+                android:id="@+id/button5"
+                android:layout_width="80dp"
+                android:layout_height="25dp"
+                android:background="@null"
+                android:text="5x5"
+                android:textColor="@color/white"></Button>
+
+            <!-- Adicione botões restantes até 10x10 aqui -->
+            <!-- Button 6x6 -->
+            <Button
+                android:id="@+id/button6"
+                android:layout_width="80dp"
+                android:layout_height="25dp"
+                android:background="@null"
+                android:text="6x6"
+                android:textColor="@color/white"></Button>
+
+        </LinearLayout>
+
+        <!-- Linha 2 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+
+            <Button
+                android:id="@+id/button7"
+                android:layout_width="80dp"
+                android:layout_height="25dp"
+                android:background="@null"
+                android:text="7x7"
+                android:textColor="@color/white"></Button>
+
+            <!-- Button 8x8 -->
+            <Button
+                android:id="@+id/button8"
+                android:layout_width="80dp"
+                android:layout_height="25dp"
+                android:background="@null"
+                android:text="8x8"
+                android:textColor="@color/white"></Button>
+
+            <!-- Button 9x9 -->
+            <Button
+                android:id="@+id/button9"
+                android:layout_width="80dp"
+                android:layout_height="25dp"
+                android:background="@null"
+                android:text="9x9"
+                android:textColor="@color/white"></Button>
+
+            <!-- Button 10x10 -->
+            <Button
+                android:id="@+id/button10"
+                android:layout_width="80dp"
+                android:layout_height="25dp"
+                android:background="@null"
+                android:text="10x10"
+                android:textColor="@color/white"></Button>
+        </LinearLayout>
+
+    </LinearLayout>
+
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/playWithFriend"
         android:layout_width="match_parent"

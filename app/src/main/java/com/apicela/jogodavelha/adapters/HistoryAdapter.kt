@@ -7,13 +7,12 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.apicela.jogodavelha.R
-import com.apicela.jogodavelha.models.MatchGame
+import com.apicela.jogodavelha.models.MatchResultado
 
-class HistoryAdapter(
-) : RecyclerView.Adapter<HistoryAdapter.MyViewHolder>() {
+class HistoryAdapter : RecyclerView.Adapter<HistoryAdapter.MyViewHolder>() {
 
-    private var lista: List<MatchGame> = ArrayList()
-    fun setList(newList: List<MatchGame>) {
+    private var lista: List<MatchResultado> = ArrayList()
+    fun setList(newList: List<MatchResultado>) {
         println("chamada set list")
         this.lista = newList
     }

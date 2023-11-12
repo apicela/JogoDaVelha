@@ -32,9 +32,10 @@
 
                 <ImageView
                     android:id="@+id/matchResult"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
                     android:layout_gravity="center"
+                    android:background="@color/white"
                     android:src="@drawable/draw"></ImageView>
 
                 <TextView
@@ -42,7 +43,7 @@
                     android:layout_width="90dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:fontFamily="monospace"
+                    android:fontFamily="sans-serif-condensed"
                     android:text="Jamil"
                     android:textAlignment="center"
                     android:textColor="#1a66ff"
@@ -54,17 +55,17 @@
                     android:layout_gravity="center"
                     android:layout_marginStart="7dp"
                     android:layout_marginEnd="7dp"
-                    android:fontFamily="monospace"
+                    android:fontFamily="sans-serif-condensed"
                     android:text="vs"
                     android:textColor="@color/black"
-                    android:textSize="16sp"></TextView>
+                    android:textSize="13sp"></TextView>
 
                 <TextView
                     android:id="@+id/oponente"
                     android:layout_width="90dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:fontFamily="monospace"
+                    android:fontFamily="sans-serif-condensed"
                     android:text="Apicela"
                     android:textAlignment="center"
                     android:textColor="#ff1a1a"
