@@ -16,7 +16,7 @@ class PlayerVsPlayer : AppCompatActivity() {
         val playerTwoNickname: EditText = findViewById(R.id.playerTwoNickname)
         val startButton: Button = findViewById(R.id.startButton)
         val voltarButton: Button = findViewById(R.id.button_voltar)
-
+        val tableSize = intent.getIntExtra("tableSize", 3)
         voltarButton.setOnClickListener {
             finish()
         }
@@ -35,6 +35,7 @@ class PlayerVsPlayer : AppCompatActivity() {
                 val intent = Intent(this@PlayerVsPlayer, MainActivity::class.java)
                 intent.putExtra("playerOne", jogadorUmNome)
                 intent.putExtra("playerTwo", jogadorDoisNome)
+                intent.putExtra("tableSize", tableSize)
                 startActivity(intent)
             }
 

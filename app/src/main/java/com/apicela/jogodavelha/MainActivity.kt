@@ -28,58 +28,50 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_activity)
 
+        // pegando as views
         playerOneNickname = findViewById(R.id.playerOneNickname)
         playerTwoNickname = findViewById(R.id.playerTwoNickname)
-
         playerOneContent = findViewById(R.id.playerOneContent)
         playerTwoContent = findViewById(R.id.playerTwoContent)
-
-
-        // Obtém o GridLayout do layout
         gridLayout = findViewById(R.id.gridContainer)
-        // Define o número de linhas e colunas do GridLayout
+
+        // pegando o tamanho da tabela e configurando no gradlyout
         tableSize = intent.getIntExtra("tableSize", 3)
         gridLayout.rowCount = tableSize
         gridLayout.columnCount = tableSize
+
+        // definindo tamanho da tela
         val widthPhone = (resources.displayMetrics.widthPixels) - 100
+
+        //startando algumas variaveis para o funcionamento
         buttons = Array(tableSize * tableSize) { null }
         winCondition = generateWinConditionList(tableSize)
         boxPositions = Array(tableSize * tableSize) { 0 }
 
-        println(winCondition)
 
         for (linha in 0 until tableSize) {
             for (coluna in 0 until tableSize) {
                 val indiceAbsoluto = (linha * tableSize + coluna)
                 buttons[indiceAbsoluto] = Button(this)
-
-                // Define os parâmetros de layout para o botão
                 buttons[indiceAbsoluto]?.setBackgroundResource(R.drawable.button_table_grid)
 
                 val params = GridLayout.LayoutParams()
                 params.height = widthPhone / tableSize
                 params.width = widthPhone / tableSize
                 buttons[indiceAbsoluto]?.layoutParams = params
-
-                // Calcula o índice absoluto
                 buttons[indiceAbsoluto]?.id = indiceAbsoluto
+
                 // Adiciona o botão ao GridLayout usando o índice absoluto
                 gridLayout.addView(buttons[indiceAbsoluto], indiceAbsoluto)
             }
         }
-
-//        for (i in 0 until gridLayout.childCount) {
-//            buttons[i] = gridLayout.getChildAt(i) as Button
-//
-//            buttons[i]?.setOnClickListener{
-//                buttons[i]?.setBackgroundResource(R.drawable.x_letter)
-//            }
 
         for (button in buttons) {
             button?.setOnClickListener {
                 println(button.id)
                 if (isBoxSelectable(button.id)) {
                     markBox(it as Button, button.id)
+                    println(button.id)
                 }
 
             }
@@ -162,8 +154,7 @@ class MainActivity : AppCompatActivity() {
 
     fun restartMatch() {
         Arrays.fill(boxPositions, 0)
-        println("box positions " + boxPositions.toList().toString())
-        playerTurn = 1;
+        changePlayer(1)
         selectedBoxs = 1;
 
         for (button in buttons) {
@@ -175,17 +166,14 @@ class MainActivity : AppCompatActivity() {
         val playerOne = playerOneNickname.text.toString()
         val oponent = playerTwoNickname.text.toString()
         if (empate) {
-            println("addMatchToHistory draw")
             historyClass.addToHistoryList(playerOne, oponent, LocalDateTime.now(), 0)
         } else {
-            println("addMatchToHistory ")
             historyClass.addToHistoryList(playerOne, oponent, LocalDateTime.now(), 1)
         }
     }
 
     private fun generateWinConditionList(tableSize: Int): List<List<Int>> {
         val winCondition = ArrayList<List<Int>>()
-        val verticalWinCondition = ArrayList<Int>(tableSize)
 
         for (linha in 0 until tableSize) {
             val horizontalWinCondition = ArrayList<Int>(tableSize)
@@ -218,5 +206,6 @@ class MainActivity : AppCompatActivity() {
         println(winCondition)
         return winCondition
     }
+
 
 }

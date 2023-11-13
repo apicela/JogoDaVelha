@@ -38,8 +38,7 @@ class HomePage : AppCompatActivity() {
         }
 
         playWithFriend.setOnClickListener {
-            println("tableSize value : ${tableSize}")
-            val intent = Intent(this@HomePage, MainActivity::class.java)
+            val intent = Intent(this@HomePage, PlayerVsPlayer::class.java)
             intent.putExtra("tableSize", tableSize)
             startActivity(intent)
         }
