@@ -14,13 +14,12 @@ class MainActivity : AppCompatActivity() {
     private lateinit var gridLayout: GridLayout
     private var playerTurn: Int = 1
     private var selectedBoxs: Int = 1
-    private lateinit var boxPositions: Array<Int>
     private lateinit var playerOneNickname: TextView
     private lateinit var playerTwoNickname: TextView
     private lateinit var winCondition: List<List<Int>>
     private lateinit var playerOneContent: LinearLayout
     private lateinit var playerTwoContent: LinearLayout
-    private lateinit var buttons: Array<Button?>
+    private lateinit var buttons: Array<Array<Button?>>
     private val historyClass = History.getInstance()
     private var tableSize: Int = 3
 
@@ -44,43 +43,41 @@ class MainActivity : AppCompatActivity() {
         val widthPhone = (resources.displayMetrics.widthPixels) - 100
 
         //startando algumas variaveis para o funcionamento
-        buttons = Array(tableSize * tableSize) { null }
+        buttons = Array(tableSize) { linha -> Array(tableSize){ coluna -> null} }
         winCondition = generateWinConditionList(tableSize)
-        boxPositions = Array(tableSize * tableSize) { 0 }
 
 
         for (linha in 0 until tableSize) {
             for (coluna in 0 until tableSize) {
-                val indiceAbsoluto = (linha * tableSize + coluna)
-                buttons[indiceAbsoluto] = Button(this)
-                buttons[indiceAbsoluto]?.setBackgroundResource(R.drawable.button_table_grid)
+                buttons[linha][coluna] = Button(this)
+
+                // para uma melhor leitura
+                val button = buttons[linha][coluna]
+
+                button?.setBackgroundResource(R.drawable.button_table_grid)
 
                 val params = GridLayout.LayoutParams()
                 params.height = widthPhone / tableSize
                 params.width = widthPhone / tableSize
-                buttons[indiceAbsoluto]?.layoutParams = params
-                buttons[indiceAbsoluto]?.id = indiceAbsoluto
-
-                // Adiciona o botão ao GridLayout usando o índice absoluto
-                gridLayout.addView(buttons[indiceAbsoluto], indiceAbsoluto)
-            }
-        }
-
-        for (button in buttons) {
-            button?.setOnClickListener {
-                println(button.id)
-                if (isBoxSelectable(button.id)) {
-                    markBox(it as Button, button.id)
-                    println(button.id)
+                button?.layoutParams = params
+                button?.tag = 0
+                println(button)
+                println(buttons[linha][coluna])
+                button?.setOnClickListener {
+                    if (isBoxSelectable(linha,coluna)) {
+                        markBox(it as Button, linha, coluna)
+                    }
                 }
+                gridLayout.addView(button)
 
             }
+
         }
     }
 
 
-    private fun markBox(button: Button, selectedBoxPosition: Int) {
-        boxPositions[selectedBoxPosition] = playerTurn
+    private fun markBox(button: Button, linha : Int, coluna : Int) {
+        buttons[linha][coluna]?.tag = playerTurn
 
         if (playerTurn == 1) {
             button.setBackgroundResource(R.drawable.x_letter)
@@ -125,9 +122,15 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+
     private fun checkWinner(): Boolean {
         for (combination in winCondition) {
-            val hasWinner = combination.all { boxPositions[it] == playerTurn }
+            val hasWinner = combination.all { index ->
+                val linha = index / tableSize
+                val col = index % tableSize
+                val button = buttons[linha][col]
+                button?.tag == playerTurn
+            }
             if (hasWinner) {
                 addMatchToHistory(false)
                 return true
@@ -147,18 +150,20 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun isBoxSelectable(boxPosition: Int): Boolean {
-        if (boxPositions[boxPosition] == 0) return true
+    private fun isBoxSelectable(linha: Int, coluna : Int): Boolean {
+        if (buttons[linha][coluna]?.tag == 0) return true
         return false
     }
 
     fun restartMatch() {
-        Arrays.fill(boxPositions, 0)
         changePlayer(1)
         selectedBoxs = 1;
 
-        for (button in buttons) {
-            button?.setBackgroundResource(R.drawable.button_table_grid)
+        for (buttonLinha in buttons) {
+            for(button in buttonLinha){
+                button?.setBackgroundResource(R.drawable.button_table_grid)
+                button?.tag = 0
+            }
         }
     }
 
