@@ -7,13 +7,36 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-
     <LinearLayout
+        android:id="@+id/backLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/button_voltar"
+            android:layout_width="63dp"
+            android:layout_height="48dp"
+            android:layout_marginTop="3dp"
+            android:background="@null"
+            android:drawableLeft="@drawable/back_arrow_yellow" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="-36dp"
+            android:layout_marginTop="1.5dp"
+            android:fontFamily="sans-serif-condensed"
+            android:text="Voltar"
+            android:textColor="@color/amarelo_letras"
+            android:textSize="14sp"></TextView>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/playersContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@id/container"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="100dp"
         android:gravity="center"
         android:orientation="horizontal">
 
@@ -85,11 +108,13 @@
     <LinearLayout
         android:id="@id/container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginStart="15dp"
         android:layout_marginEnd="15dp"
-        android:gravity="center">
+        android:gravity="center"
+        android:layout_above="@id/container"
+        android:layout_alignParentTop="true">
 
         <GridLayout
             android:id="@+id/gridContainer"
@@ -104,6 +129,23 @@
         </GridLayout>
 
     </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_above="@id/container"
+        android:layout_alignParentTop="true"
+        >
 
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/restart_game"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+
+            android:background="@drawable/background_start_shape"
+            android:text="Reiniciar"
+            android:textSize="20sp"></androidx.appcompat.widget.AppCompatButton>
+
+    </LinearLayout>
 
 </LinearLayout>

@@ -1,5 +1,6 @@
 package com.apicela.jogodavelha
 
+import android.os.Build.VERSION_CODES.O
 import android.os.Bundle
 import android.widget.Button
 import android.widget.GridLayout
@@ -7,7 +8,6 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import java.time.LocalDateTime
-import java.util.Arrays
 
 
 class MainActivity : AppCompatActivity() {
@@ -22,10 +22,10 @@ class MainActivity : AppCompatActivity() {
     private lateinit var buttons: Array<Array<Button?>>
     private val historyClass = History.getInstance()
     private var tableSize: Int = 3
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_activity)
+
 
         // pegando as views
         playerOneNickname = findViewById(R.id.playerOneNickname)
@@ -33,6 +33,17 @@ class MainActivity : AppCompatActivity() {
         playerOneContent = findViewById(R.id.playerOneContent)
         playerTwoContent = findViewById(R.id.playerTwoContent)
         gridLayout = findViewById(R.id.gridContainer)
+
+        // buttons
+        val voltarButton: Button = findViewById(R.id.button_voltar)
+        voltarButton.setOnClickListener {
+            finish()
+        }
+        val restartGame: Button = findViewById(R.id.restart_game)
+        restartGame.setOnClickListener {
+            println("restar pressed player turn ${playerTurn}")
+        }
+
 
         // pegando o tamanho da tabela e configurando no gradlyout
         tableSize = intent.getIntExtra("tableSize", 3)
@@ -61,11 +72,9 @@ class MainActivity : AppCompatActivity() {
                 params.width = widthPhone / tableSize
                 button?.layoutParams = params
                 button?.tag = 0
-                println(button)
-                println(buttons[linha][coluna])
                 button?.setOnClickListener {
                     if (isBoxSelectable(linha,coluna)) {
-                        markBox(it as Button, linha, coluna)
+                        markBox( linha, coluna)
                     }
                 }
                 gridLayout.addView(button)
@@ -76,10 +85,12 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    private fun markBox(button: Button, linha : Int, coluna : Int) {
-        buttons[linha][coluna]?.tag = playerTurn
+    private fun markBox( linha : Int, coluna : Int) {
+        val button = buttons[linha][coluna]!!
+        button.tag = playerTurn
 
         if (playerTurn == 1) {
+            println("player turn 1")
             button.setBackgroundResource(R.drawable.x_letter)
             if (checkWinner()) {
                 val winDialog = FinishMatchDialog(
@@ -99,7 +110,8 @@ class MainActivity : AppCompatActivity() {
                 changePlayer(2)
                 selectedBoxs++
             }
-        } else {
+        } else{
+            println("player turn 2")
             button.setBackgroundResource(R.drawable.o_letter)
             if (checkWinner()) {
                 var winDialog: FinishMatchDialog = FinishMatchDialog(
@@ -122,6 +134,13 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun removeMarkBox(linha : Int, coluna : Int){
+        println("remove mark box called before ${buttons[linha][coluna]?.tag}")
+        val button = buttons[linha][coluna]!!
+        button.tag = 0
+        println("remove mark box called after ${buttons[linha][coluna]?.tag}")
+
+    }
 
     private fun checkWinner(): Boolean {
         for (combination in winCondition) {
@@ -167,6 +186,20 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+
+
+
+    private fun evaluateBoard(): Int {
+       if(checkWinner()){
+            if(playerTurn == 1){
+                return 10
+            }  else {return -10}
+       }
+        return 0
+    }
+
+
+
     private fun addMatchToHistory(empate: Boolean) {
         val playerOne = playerOneNickname.text.toString()
         val oponent = playerTwoNickname.text.toString()
@@ -177,7 +210,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun generateWinConditionList(tableSize: Int): List<List<Int>> {
+    fun generateWinConditionList(tableSize: Int): List<List<Int>> {
         val winCondition = ArrayList<List<Int>>()
 
         for (linha in 0 until tableSize) {
@@ -208,9 +241,6 @@ class MainActivity : AppCompatActivity() {
             diagonalSecundariaWinCondition.add((i + 1) * (tableSize - 1))
         }
         winCondition.add(diagonalSecundariaWinCondition)
-        println(winCondition)
         return winCondition
     }
-
-
 }
