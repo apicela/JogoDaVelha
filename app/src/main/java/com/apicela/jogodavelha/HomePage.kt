@@ -9,8 +9,11 @@ class HomePage : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home_page)
-        val playWithFriend: Button = findViewById(R.id.playWithFriend)
-        val playAgainstIA: Button = findViewById(R.id.startButtonAgainstIA)
+        val startGame: Button = findViewById(R.id.start_game)
+        val buttonPvP: Button = findViewById(R.id.startPvP)
+        val buttonPvB: Button = findViewById(R.id.startPvB)
+
+        var againstBot = false
         val historyButton: Button = findViewById(R.id.historyButton)
         var tableSize: Int = 3
         val tableSizeButtons: Array<Button> = arrayOf(
@@ -37,9 +40,23 @@ class HomePage : AppCompatActivity() {
             }
         }
 
-        playWithFriend.setOnClickListener {
+        buttonPvP.setOnClickListener{
+            buttonPvP.setBackgroundResource(R.drawable.button_selected)
+            againstBot = false
+            buttonPvB.setBackgroundResource(0)
+        }
+
+        buttonPvB.setOnClickListener{
+            buttonPvB.setBackgroundResource(R.drawable.button_selected)
+            againstBot = true
+            buttonPvP.setBackgroundResource(0)
+        }
+
+
+        startGame.setOnClickListener {
             val intent = Intent(this@HomePage, PlayerVsPlayer::class.java)
             intent.putExtra("tableSize", tableSize)
+            intent.putExtra("againstBot", againstBot)
             startActivity(intent)
         }
 

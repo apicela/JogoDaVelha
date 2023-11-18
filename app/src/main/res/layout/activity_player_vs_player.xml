@@ -28,7 +28,7 @@
             android:layout_marginTop="1.5dp"
             android:fontFamily="sans-serif-condensed"
             android:text="Voltar"
-            android:textColor="@color/amarelo_letras"
+            android:textColor="@color/amarelo_personalizado"
             android:textSize="14sp"></TextView>
     </LinearLayout>
 

@@ -7,13 +7,14 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="amarelo_letras">#b7b700</color>
+    <color name="amarelo_personalizado">#b7b700</color>
     <color name="cinza_letras">#2a2a2a</color>
     <color name="grey">#808080</color>
     <color name="azulBackArrow">#24B5EA</color>
     <color name="white_75">#BFFFFFFF</color>
     <color name="white_90">#80FFFFFF</color>
     <color name="yellow">#bfffff00</color>
+    <color name="yellow_50">#99ffff00</color>
     <color name="black_80">#26000000</color>
     <color name="black_50">#80000000</color>
     <color name="azulClaro_80">#2645efff</color>

@@ -15,7 +15,7 @@
         android:fontFamily="sans-serif-black"
         android:gravity="center"
         android:text="JOGO DA VELHA!"
-        android:textColor="@color/amarelo_letras"
+        android:textColor="@color/amarelo_personalizado"
         android:textSize="45sp"
         android:textStyle="bold|italic"></TextView>
 
@@ -23,6 +23,15 @@
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:src="@drawable/art_tictac"></ImageView>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tabuleiro"
+        android:textSize="20sp"
+        android:textColor="@color/amarelo_personalizado"
+        android:fontFamily="sans-serif-black"
+        android:layout_marginBottom="15dp"></TextView>
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -117,9 +126,41 @@
         </LinearLayout>
 
     </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/grid_button_selector_bg"
+        android:orientation="vertical"
+        android:layout_marginTop="30dp">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <Button
+            android:id="@+id/startPvP"
+            android:layout_width="80dp"
+            android:layout_height="25dp"
+            android:background="@drawable/button_selected"
+            android:text="vs Player"
+            android:textColor="@color/white"
+            android:textAllCaps="false"></Button>
+
+        <!-- Button 4x4 -->
+        <Button
+            android:id="@+id/startPvB"
+            android:layout_width="80dp"
+            android:layout_height="25dp"
+            android:background="@null"
+            android:text="vs Bot"
+            android:textColor="@color/white"
+            android:textAllCaps="false"></Button>
+    </LinearLayout>
+    </LinearLayout>
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/playWithFriend"
+        android:id="@+id/start_game"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
@@ -128,21 +169,9 @@
         android:background="@drawable/background_start_shape"
         android:fontFamily="sans-serif-black"
         android:gravity="center"
-        android:text="JOGAR COM UM AMIGO!"
+        android:text="INICIAR"
         android:textSize="20sp"></androidx.appcompat.widget.AppCompatButton>
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/startButtonAgainstIA"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginEnd="20dp"
-        android:background="@drawable/background_start_shape"
-        android:fontFamily="sans-serif-black"
-        android:gravity="center"
-        android:text="ENFRENTAR UMA IA!"
-        android:textSize="20sp"></androidx.appcompat.widget.AppCompatButton>
 
 
     <androidx.appcompat.widget.AppCompatButton

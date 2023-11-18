@@ -1,6 +1,5 @@
 package com.apicela.jogodavelha
 
-import android.os.Build.VERSION_CODES.O
 import android.os.Bundle
 import android.widget.Button
 import android.widget.GridLayout
@@ -22,6 +21,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var buttons: Array<Array<Button?>>
     private val historyClass = History.getInstance()
     private var tableSize: Int = 3
+    var againstBot = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_activity)
@@ -41,12 +41,17 @@ class MainActivity : AppCompatActivity() {
         }
         val restartGame: Button = findViewById(R.id.restart_game)
         restartGame.setOnClickListener {
-            println("restar pressed player turn ${playerTurn}")
+            restartMatch()
         }
 
 
         // pegando o tamanho da tabela e configurando no gradlyout
+        val playerOneName = intent.getStringExtra("playerOne")
+        val playerTwoName = intent.getStringExtra("playerTwo")
+        playerOneNickname.setText(playerOneName)
+        playerTwoNickname.setText(playerTwoName)
         tableSize = intent.getIntExtra("tableSize", 3)
+        againstBot = intent.getBooleanExtra("againstBot", true)
         gridLayout.rowCount = tableSize
         gridLayout.columnCount = tableSize
 
@@ -54,7 +59,7 @@ class MainActivity : AppCompatActivity() {
         val widthPhone = (resources.displayMetrics.widthPixels) - 100
 
         //startando algumas variaveis para o funcionamento
-        buttons = Array(tableSize) { linha -> Array(tableSize){ coluna -> null} }
+        buttons = Array(tableSize) { linha -> Array(tableSize) { coluna -> null } }
         winCondition = generateWinConditionList(tableSize)
 
 
@@ -73,25 +78,32 @@ class MainActivity : AppCompatActivity() {
                 button?.layoutParams = params
                 button?.tag = 0
                 button?.setOnClickListener {
-                    if (isBoxSelectable(linha,coluna)) {
-                        markBox( linha, coluna)
+                    if (isBoxSelectable(linha, coluna)) {
+                        markBox(linha, coluna, playerTurn, buttons)
                     }
                 }
                 gridLayout.addView(button)
-
             }
-
         }
     }
 
 
-    private fun markBox( linha : Int, coluna : Int) {
+    private fun markBox(linha: Int, coluna: Int, value: Int, buttons: Array<Array<Button?>>) {
+        printBoard(buttonToIntArray(buttons))
         val button = buttons[linha][coluna]!!
-        button.tag = playerTurn
-
-        if (playerTurn == 1) {
-            println("player turn 1")
+        button.tag = value
+        if (value == 1) {
             button.setBackgroundResource(R.drawable.x_letter)
+        } else if (value == 2) {
+            button.setBackgroundResource(R.drawable.o_letter)
+        } else {
+            button.setBackgroundResource(0)
+        }
+        checkGame(againstBot)
+    }
+
+    private fun checkGame(againstBot : Boolean) {
+        if (playerTurn == 1) {
             if (checkWinner()) {
                 val winDialog = FinishMatchDialog(
                     this@MainActivity,
@@ -107,12 +119,11 @@ class MainActivity : AppCompatActivity() {
                 drawDialog.setCancelable(false)
                 drawDialog.show()
             } else {
-                changePlayer(2)
+                changePlayer()
                 selectedBoxs++
+                if(againstBot) findBestMove(buttonToIntArray(buttons))
             }
-        } else{
-            println("player turn 2")
-            button.setBackgroundResource(R.drawable.o_letter)
+        } else {
             if (checkWinner()) {
                 var winDialog: FinishMatchDialog = FinishMatchDialog(
                     this@MainActivity,
@@ -128,18 +139,10 @@ class MainActivity : AppCompatActivity() {
                 drawDialog.setCancelable(false)
                 drawDialog.show()
             } else {
-                changePlayer(1)
+                changePlayer()
                 selectedBoxs++
             }
         }
-    }
-
-    private fun removeMarkBox(linha : Int, coluna : Int){
-        println("remove mark box called before ${buttons[linha][coluna]?.tag}")
-        val button = buttons[linha][coluna]!!
-        button.tag = 0
-        println("remove mark box called after ${buttons[linha][coluna]?.tag}")
-
     }
 
     private fun checkWinner(): Boolean {
@@ -158,46 +161,147 @@ class MainActivity : AppCompatActivity() {
         return false
     }
 
-    private fun changePlayer(player: Int) {
-        playerTurn = player
+    private fun checkWinner(board: Array<IntArray>): Int {
+        for (combination in winCondition) {
+            if (combination.all { index ->
+                    val linha = index / tableSize
+                    val col = index % tableSize
+                    val button = board[linha][col]
+                    button == 1
+                }) return -10
+            else if (combination.all { index ->
+                    val linha = index / tableSize
+                    val col = index % tableSize
+                    val button = board[linha][col]
+                    button == 2
+                }) return 10
+        }
+        return 0
+    }
+
+    private fun changePlayer() {
         if (playerTurn == 1) {
-            playerOneContent.setBackgroundResource(R.drawable.border_style)
-            playerTwoContent.setBackgroundResource(R.drawable.transparent_border_white)
-        } else {
+            playerTurn = 2
             playerTwoContent.setBackgroundResource(R.drawable.border_style)
             playerOneContent.setBackgroundResource(R.drawable.transparent_border_white)
+        } else {
+            playerTurn = 1
+            playerOneContent.setBackgroundResource(R.drawable.border_style)
+            playerTwoContent.setBackgroundResource(R.drawable.transparent_border_white)
         }
     }
 
-    private fun isBoxSelectable(linha: Int, coluna : Int): Boolean {
+    private fun isBoxSelectable(linha: Int, coluna: Int): Boolean {
         if (buttons[linha][coluna]?.tag == 0) return true
         return false
     }
 
     fun restartMatch() {
-        changePlayer(1)
-        selectedBoxs = 1;
-
+        playerTurn = 2
+        changePlayer()
+        selectedBoxs = 1
         for (buttonLinha in buttons) {
-            for(button in buttonLinha){
+            for (button in buttonLinha) {
                 button?.setBackgroundResource(R.drawable.button_table_grid)
                 button?.tag = 0
             }
         }
     }
 
-
-
-
-    private fun evaluateBoard(): Int {
-       if(checkWinner()){
-            if(playerTurn == 1){
-                return 10
-            }  else {return -10}
-       }
-        return 0
+    fun hasEmptyBoxs(board: Array<IntArray>): Boolean {
+        for (i in 0 until tableSize) {
+            for (j in 0 until tableSize) {
+                if (board[i][j] == 0) return true
+            }
+        }
+        return false
     }
 
+    fun minimax(
+        board: Array<IntArray>,
+        depth: Int, isMax: Boolean
+    ): Int {
+        val score: Int = checkWinner(board)
+        if (score == 10) return score
+        if (score == -10) return score
+        if (!hasEmptyBoxs(board)) return 0
+
+        return if (isMax) {
+            var best = -1000
+
+            // Traverse all cells
+            for (row in 0 until tableSize) {
+                for (col in 0 until tableSize) {
+                    if (board[row][col] == 0) {
+                        board[row][col] = 2
+
+                        best = Math.max(
+                            best, minimax(
+                                board,
+                                depth + 1, !isMax
+                            )
+                        )
+
+                        board[row][col] = 0
+                    }
+                }
+            }
+            best
+        } else {
+            var best = 1000
+            for (row in 0 until tableSize) {
+                for (col in 0 until tableSize) {
+                    if (board[row][col] == 0) {
+                        board[row][col] = 1
+
+                        best = Math.min(
+                            best, minimax(
+                                board,
+                                depth + 1, !isMax
+                            )
+                        )
+
+                        board[row][col] = 0
+                    }
+                }
+            }
+            best
+        }
+    }
+
+    fun printBoard(board: Array<IntArray>) {
+        for (linha in board) {
+            for (col in linha) {
+                print("$col ")
+            }
+            println()
+        }
+    }
+
+    fun findBestMove(board: Array<IntArray>): Pair<Int, Int> {
+        var bestVal = -1000
+        var bestMove = Pair(-1, -1)
+
+
+        for (row in 0 until tableSize) {
+            for (col in 0 until tableSize) {
+                if (board[row][col] == 0) {
+                    board[row][col] = 2
+
+                    val moveVal = minimax(board, 0, false)
+                    board[row][col] = 0
+
+                    if (moveVal > bestVal) {
+                        bestMove = Pair(row, col)
+                        bestVal = moveVal
+                    }
+                }
+            }
+        }
+//        println("${bestMove.first} . ${bestMove.second} - player: ${playerTurn}")
+        markBox(bestMove.first, bestMove.second, playerTurn, buttons)
+        return bestMove
+    }
 
 
     private fun addMatchToHistory(empate: Boolean) {
@@ -241,6 +345,17 @@ class MainActivity : AppCompatActivity() {
             diagonalSecundariaWinCondition.add((i + 1) * (tableSize - 1))
         }
         winCondition.add(diagonalSecundariaWinCondition)
+//        println(winCondition)
         return winCondition
+    }
+
+    fun buttonToIntArray(buttons: Array<Array<Button?>>): Array<IntArray> {
+        var board = Array(tableSize) { IntArray(tableSize) { 0 } }
+        for (row in 0 until tableSize) {
+            for (col in 0 until tableSize) {
+                board[row][col] = buttons[row][col]?.tag as Int
+            }
+        }
+        return board
     }
 }

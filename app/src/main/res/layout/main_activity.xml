@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
+    android:background="@drawable/background"
     tools:context=".MainActivity">
-
     <LinearLayout
         android:id="@+id/backLayout"
         android:layout_width="match_parent"
@@ -28,9 +27,11 @@
             android:layout_marginTop="1.5dp"
             android:fontFamily="sans-serif-condensed"
             android:text="Voltar"
-            android:textColor="@color/amarelo_letras"
+            android:textColor="@color/amarelo_personalizado"
             android:textSize="14sp"></TextView>
     </LinearLayout>
+
+
     <LinearLayout
         android:id="@+id/playersContainer"
         android:layout_width="match_parent"
@@ -58,7 +59,7 @@
                 android:gravity="center"
                 android:maxLines="1"
                 android:text="Jogador 1:"
-                android:textColor="@color/amarelo_letras"
+                android:textColor="@color/amarelo_personalizado"
                 android:textSize="16sp"
                 android:textStyle="bold"></TextView>
 
@@ -106,45 +107,45 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@id/container"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginStart="15dp"
-        android:layout_marginEnd="15dp"
-        android:gravity="center"
-        android:layout_above="@id/container"
-        android:layout_alignParentTop="true">
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center">
 
         <GridLayout
             android:id="@+id/gridContainer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:background="@null"
-            android:columnCount="4"
-            android:rowCount="4">
-
-
-        </GridLayout>
-
+            android:rowCount="3"
+            android:columnCount="3"
+            android:layout_marginTop="16dp"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:layout_above="@id/container"
-        android:layout_alignParentTop="true"
-        >
+        android:orientation="vertical"
+        android:gravity="center">
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/restart_game"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-
-            android:background="@drawable/background_start_shape"
+            android:layout_width="150dp"
+            android:layout_height="35dp"
             android:text="Reiniciar"
+            android:background="@drawable/yellow_corner_radius"
+            android:fontFamily="sans-serif-black"
+            android:layout_marginBottom="13dp"
             android:textSize="20sp"></androidx.appcompat.widget.AppCompatButton>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/button_home"
+            android:layout_width="150dp"
+            android:layout_marginBottom="40dp"
+            android:layout_height="35dp"
+            android:background="@drawable/yellow_corner_radius"
+            android:text="INICIO"
+            android:fontFamily="sans-serif-black"
+            android:textSize="20sp"></androidx.appcompat.widget.AppCompatButton>
+
 
     </LinearLayout>
 
