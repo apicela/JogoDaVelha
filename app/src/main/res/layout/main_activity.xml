@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:id="@+id/backLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/button_voltar"
+            android:layout_width="63dp"
+            android:layout_height="48dp"
+            android:layout_marginTop="3dp"
+            android:background="@null"
+            android:drawableLeft="@drawable/back_arrow_yellow" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="-36dp"
+            android:layout_marginTop="1.5dp"
+            android:fontFamily="sans-serif-condensed"
+            android:text="Voltar"
+            android:textColor="@color/amarelo_personalizado"
+            android:textSize="14sp"></TextView>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/playersContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/container"
+        android:layout_alignParentTop="true"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/playerOneContent"
+            android:layout_width="90dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/border_style"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/playerOneNickname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="2dp"
+                android:layout_marginTop="2dp"
+                android:layout_marginEnd="2dp"
+                android:gravity="center"
+                android:maxLines="1"
+                android:text="Jogador 1:"
+                android:textColor="@color/amarelo_personalizado"
+                android:textSize="16sp"
+                android:textStyle="bold"></TextView>
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="15dp"
+
+                android:layout_marginBottom="15dp"
+                android:src="@drawable/x_letter"></ImageView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/playerTwoContent"
+            android:layout_width="90dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:background="@drawable/transparent_border_white"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/playerTwoNickname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="2dp"
+                android:layout_marginTop="2dp"
+                android:layout_marginEnd="2dp"
+                android:gravity="center"
+                android:maxLines="1"
+                android:text="Jogador 2:"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:textStyle="bold"></TextView>
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="15dp"
+                android:src="@drawable/o_letter">
+
+            </ImageView>
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center">
+
+        <GridLayout
+            android:id="@+id/gridContainer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:columnCount="3"
+            android:rowCount="3" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/restart_game"
+            android:layout_width="150dp"
+            android:layout_height="35dp"
+            android:layout_marginBottom="13dp"
+            android:background="@drawable/yellow_corner_radius"
+            android:fontFamily="sans-serif-black"
+            android:text="Reiniciar"
+            android:textSize="20sp"></androidx.appcompat.widget.AppCompatButton>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/button_home"
+            android:layout_width="150dp"
+            android:layout_height="35dp"
+            android:layout_marginBottom="40dp"
+            android:background="@drawable/yellow_corner_radius"
+            android:fontFamily="sans-serif-black"
+            android:text="INICIO"
+            android:textSize="20sp"></androidx.appcompat.widget.AppCompatButton>
+
+
+    </LinearLayout>
+
+</LinearLayout>
