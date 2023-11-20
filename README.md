@@ -39,7 +39,7 @@ O Modo Player vs Bot utiliza o algoritmo Minimax, uma abordagem de inteligência
 
 - **Requisitos Mínimos:** <br>
   - O aplicativo é compatível com sistemas operacionais Android na versão Android 8+<br>
-  - 12MB de espaço de memória disponível
+  - 13MB de espaço de memória disponível
 
 ## Contribuições
 
