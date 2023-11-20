@@ -47,3 +47,12 @@ Contribuições são bem-vindas! Se você tiver sugestões de melhorias, correç
 
 Divirta-se jogando o Jogo da Velha Multiplayer!
 
+
+## Para desenvolvedores
+
+### Gerando arquivo .apk
+- <b>1. Acesse a pasta app
+- 2. Execute no terminal o seguinte comando:<br></b>
+  - Windows: `gradlew assembleDebug`
+  - Linux: `./gradlew assembleDebug`
+- <b>3. Acesse o arquivo .apk gerado em: `app\build\outputs\apk\debug`
