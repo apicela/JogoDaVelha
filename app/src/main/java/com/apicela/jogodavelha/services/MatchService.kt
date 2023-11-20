@@ -103,8 +103,11 @@ class MatchService {
         val oponent = MainActivity.playerTwoNickname.text.toString()
         if (empate) {
             historyClass.addToHistoryList(playerOne, oponent, LocalDateTime.now(), 0)
-        } else {
-            historyClass.addToHistoryList(playerOne, oponent, LocalDateTime.now(), 1)
+        } else  {
+            if(MainActivity.playerTurn == 1)
+                historyClass.addToHistoryList(playerOne, oponent, LocalDateTime.now(), 1)
+            else
+                historyClass.addToHistoryList(playerOne, oponent, LocalDateTime.now(), 2)
         }
     }
 
