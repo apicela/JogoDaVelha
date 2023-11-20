@@ -1,5 +1,6 @@
 package com.apicela.jogodavelha
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.GridLayout
@@ -43,6 +44,14 @@ class MainActivity() : AppCompatActivity() {
         restartGame.setOnClickListener {
             restartMatch()
         }
+        val buttonHome: Button = findViewById(R.id.button_home)
+        buttonHome.setOnClickListener {
+            val intent = Intent(this@MainActivity, HomePage::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
+            startActivity(intent)
+            finish()
+        }
+
 
 
         // pegando o tamanho da tabela e configurando no gradlyout
@@ -64,12 +73,12 @@ class MainActivity() : AppCompatActivity() {
         matchService = MatchService()
 
 
-        for (linha in 0 until tableSize) {
-            for (coluna in 0 until tableSize) {
-                buttons[linha][coluna] = Button(this)
+        for (row in 0 until tableSize) {
+            for (col in 0 until tableSize) {
+                buttons[row][col] = Button(this)
 
                 // para uma melhor leitura
-                val button = buttons[linha][coluna]
+                val button = buttons[row][col]
 
                 button?.setBackgroundResource(R.drawable.button_table_grid)
 
@@ -79,8 +88,8 @@ class MainActivity() : AppCompatActivity() {
                 button?.layoutParams = params
                 button?.tag = 0
                 button?.setOnClickListener {
-                    if (isBoxSelectable(linha, coluna)) {
-                        markBox(linha, coluna, playerTurn, buttons)
+                    if (isBoxSelectable(row, col)) {
+                        markBox(row, col, playerTurn, buttons)
                     }
                 }
                 gridLayout.addView(button)
