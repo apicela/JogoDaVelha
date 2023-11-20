@@ -56,3 +56,9 @@ Divirta-se jogando o Jogo da Velha Multiplayer!
   - Windows: `gradlew assembleDebug`
   - Linux: `./gradlew assembleDebug`
 - <b>3. Acesse o arquivo .apk gerado em: `app\build\outputs\apk\debug`
+
+# Aplicação
+
+
+https://github.com/apicela/JogoDaVelha/assets/105384228/e731e0c2-6b78-477c-b155-5478871a171a
+
