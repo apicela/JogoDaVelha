@@ -60,5 +60,6 @@ Divirta-se jogando o Jogo da Velha Multiplayer!
 # Aplicação
 
 
-https://github.com/apicela/JogoDaVelha/assets/105384228/e731e0c2-6b78-477c-b155-5478871a171a
+
+https://github.com/apicela/JogoDaVelha/assets/105384228/c52a2235-071c-42f7-8192-e5e428cd1d39
 
